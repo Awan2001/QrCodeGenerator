@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35825.156 d17.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QrCodeGenerator", "QrCodeGenerator\QrCodeGenerator.csproj", "{8AEE6256-C381-48A5-82D7-0F26C27E0C17}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8AEE6256-C381-48A5-82D7-0F26C27E0C17}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8AEE6256-C381-48A5-82D7-0F26C27E0C17}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8AEE6256-C381-48A5-82D7-0F26C27E0C17}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8AEE6256-C381-48A5-82D7-0F26C27E0C17}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BB8B8107-25B4-4DC8-8F4E-FDF2ED7004B9}
+	EndGlobalSection
+EndGlobal
