@@ -1,34 +1,79 @@
 ﻿using QRCoder;
 using System;
+using System.IO;
 
 class Program
 {
     static void Main()
     {
-        Console.WriteLine("Enter URL to generate QR code:");
-        string url = Console.ReadLine();
+        string saveDirectory = @"C:\Users\arife\OneDrive\Desktop\GeneratedQrCode";
 
-        if (string.IsNullOrWhiteSpace(url))
+        // Create the directory if it doesn't exist
+        if (!Directory.Exists(saveDirectory))
         {
-            Console.WriteLine("Invalid input");
-            return;
+            Directory.CreateDirectory(saveDirectory);
         }
 
-        try
+        while (true)
         {
-            using var qrGenerator = new QRCodeGenerator();
-            using QRCodeData qrCodeData = qrGenerator.CreateQrCode(url, QRCodeGenerator.ECCLevel.Q);
+            Console.WriteLine("Enter URL to generate QR code:");
+            string url = Console.ReadLine();
 
-            var pngQrCode = new PngByteQRCode(qrCodeData);
-            byte[] qrCodeBytes = pngQrCode.GetGraphic(20);
+            if (string.IsNullOrWhiteSpace(url))
+            {
+                Console.WriteLine("Invalid input. Please enter a non-empty URL.");
+                continue;
+            }
 
-            System.IO.File.WriteAllBytes("qrcode.png", qrCodeBytes);
+            string fileName;
+            string fullPath;
+            while (true)
+            {
+                Console.WriteLine("Enter a name for the QR code image (without extension):");
+                fileName = Console.ReadLine();
 
-            Console.WriteLine("QR code saved to qrcode.png");
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Error: {ex.Message}");
+                if (string.IsNullOrWhiteSpace(fileName))
+                {
+                    Console.WriteLine("Invalid name. Please try again.");
+                    continue;
+                }
+
+                fileName = fileName.Trim() + ".png";
+                fullPath = Path.Combine(saveDirectory, fileName);
+
+                if (File.Exists(fullPath))
+                {
+                    Console.WriteLine($"File \"{fileName}\" already exists. Please choose a different name.");
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            try
+            {
+                using var qrGenerator = new QRCodeGenerator();
+                using QRCodeData qrCodeData = qrGenerator.CreateQrCode(url, QRCodeGenerator.ECCLevel.Q);
+
+                var pngQrCode = new PngByteQRCode(qrCodeData);
+                byte[] qrCodeBytes = pngQrCode.GetGraphic(20);
+
+                File.WriteAllBytes(fullPath, qrCodeBytes);
+
+                Console.WriteLine($"QR code saved to: {fullPath}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+
+            Console.Write("Do you want to generate another QR code? (y/n): ");
+            string choice = Console.ReadLine();
+            if (choice.Trim().ToLower() != "y")
+            {
+                break;
+            }
         }
     }
 }
